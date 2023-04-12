@@ -13,6 +13,7 @@ public class Game extends JPanel implements Runnable {
 	 private boolean playMusic;
 	 private Sound s;
   //tt
+	 //gdgdgdrg
 	
 	public Game() {
     background = new ImageIcon ("background.jpg");
