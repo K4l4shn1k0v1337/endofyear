@@ -4,38 +4,24 @@ import javax.swing.ImageIcon;
 
 public class Tank {
 
-	private int x,y,w,h,score;
+	private int x, y, w, h, dy, dx, score;
 	private Color col;
 	private ImageIcon img;
 	//might need dy
 
-	public Tank() {
-	x= 700;
-	y=0;
-	w=50;
-	h=50;
-	col = Color.BLACK;
-	score=0;
-	}
-
-	
-	public Tank(int xV, Color c) {
-		x=xV;
-		y=400;
-		w=50;
-		h=150;
-		col = Color.WHITE;
-		score=0;
-	}
-	
-	public Tank(int i, int j, int k, int l, ImageIcon imageIcon) {
-		// TODO Auto-generated constructor stub
+	public Tank (int xV, int yV, int wV, int hV, String file, int ddx, int ddy) {
+		x = xV;
+		y = yV;
+		w = wV;
+		h = hV;
+		dx = ddx;
+		dy = ddy;
+		img = new ImageIcon(file);
 		
-		x=i;
-		y=j;
-		w=k;
-		h=l;
-		img = imageIcon;
+		
+	}
+	public void increaseScore(int s) {
+		score+=s;
 	}
 
 	public ImageIcon getImg() {
@@ -57,27 +43,62 @@ public class Tank {
 	public int getH() {
 		return h;
 	}
-	private Color getColor() {
-		return col;
-		
+
+	public void setDx(int dxFromGame) {
+	dx= dxFromGame;
+	
 	}
-	public void setY(int dy) {
-		if(y>0 &&y<1500)
-		y += dy;
-		
-		if(y<=0) {
-			y++;
-		}
+	public int getScore() {
+		return score;
 	}
+		
 
 
-	public void addPoint(int i) {
-		// TODO Auto-generated method stub
-		
+public void moverpalaarriba (int screenw, int screenh) {
+	x+=dx;
+	y+=-dy;		
+	if((x>=screenw)) {
+		dx = dx * 1;
+	
 	}
 	
-//need collision 
+	
+	if((x<=0)) {
+		dx = dx * 1;
+	}
+	
+	
+	
+if((y>=555)) {
+dy = dy * 1;
 
-//return methods
+}
 
+
+	if((y<=60)) {
+		dy = dy * 1;
+	
+}
+}
+
+public void moverpalaabajo (int screenw, int screenh) {
+	x+=dx;
+	y+=dy;		
+	if((x>=screenw)) {
+		dx = dx * 1;
+	}
+	if((x<=0)) {
+		dx = dx * 1;
+	}
+if((y>=555)) {
+dy = dy * 1;
+}
+
+	if((y<=60)) {
+		dy = dy * 1;
+	
+}
+	
+
+}
 }
