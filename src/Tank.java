@@ -55,7 +55,7 @@ public class Tank {
 
 
 public void moverpalaarriba (int screenw, int screenh) {
-	x+=dx;
+	//x+=dx;
 	y+=-dy;		
 	if((x>=screenw)) {
 		dx = dx * 1;
@@ -81,8 +81,36 @@ dy = dy * 1;
 }
 }
 
+public void moverderecha (int screenx, int screeny) {
+	x+=dx;	
+	if((x>=screenx)) {
+		dx = dx * 1;
+	
+	}
+	
+	
+	if((x<=0)) {
+		dx = dx * 1;
+	}
+	
+	
+	
+if((y>=555)) {
+dy = dy * 1;
+
+}
+
+
+	if((y<=60)) {
+		dy = dy * 1;
+	
+}
+}
+	
+
+
 public void moverpalaabajo (int screenw, int screenh) {
-	x+=dx;
+	//x+=dx;
 	y+=dy;		
 	if((x>=screenw)) {
 		dx = dx * 1;
@@ -98,7 +126,26 @@ dy = dy * 1;
 		dy = dy * 1;
 	
 }
+}
 	
+public void moverizquierda (int screenw, int screenh) {
+	
+	x+=-dx;
+			
+		if((x>=screenw)) {
+			dx = dx * 1;
+		}
+		if((x<=0)) {
+			dx = dx * 1;
+		}
+	if((y>=555)) {
+	dy = dy * 1;
+	}
 
+		if((y<=60)) {
+			dy = dy * 1;
+		
+	}
+		
 }
 }

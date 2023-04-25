@@ -24,6 +24,10 @@ public class Game extends JPanel implements Runnable, KeyListener, ActionListene
   private boolean up2 = false;
   private boolean down1 = false;
   private boolean down2 = false;
+  private boolean right = false;
+  private boolean right2 = false;
+  private boolean left = false;
+  private boolean left2 = false;  
  
 	
 	public Game() {
@@ -92,10 +96,10 @@ public class Game extends JPanel implements Runnable, KeyListener, ActionListene
 		g2d.drawImage(player1.getImg().getImage(), player1.getX(), player1.getY(), player1.getW(), player1.getH(), this);
 		g2d.drawImage(player2.getImg().getImage(), player2.getX(), player2.getY(), player2.getW(), player2.getH(), this);
 		g2d.setColor(Color.BLACK);
-		//g2d.drawRect(0, 180, 1900, 20); //Parte superior
-		//g2d.drawRect(0, 840, 1900, 20); //Parte inferior
-		//g2d.drawRect(160, 200, 20, 640); //Parte izquierda
-		//g2d.drawRect(1730, 200, 20, 640); //Parte derecha
+		g2d.drawRect(0, 180, 1900, 20); //Parte superior
+		g2d.drawRect(0, 840, 1900, 20); //Parte inferior
+		g2d.drawRect(160, 200, 20, 640); //Parte izquierda
+		g2d.drawRect(1730, 200, 20, 640); //Parte derecha
 
 		
 		moveplayers();
@@ -160,10 +164,25 @@ public class Game extends JPanel implements Runnable, KeyListener, ActionListene
 				player2.moverpalaabajo(getWidth(), getHeight());   //Mover hacia abajo jugador2
 			}
 			
-			if (down2 ) {
+			if (down2) {
 				player1.moverpalaabajo(getWidth(), getHeight());   //Mover hacia abajo jugador1
 			}
-						 
+			
+			if (right2) {
+				player1.moverderecha(getWidth(), getHeight());    
+			}
+			
+			if (right) {
+				player2.moverderecha(getWidth(), getHeight());
+			}
+			
+			if (left) {
+				player2.moverizquierda(getWidth(), getHeight());
+			}
+			
+			if (left2) {
+				player1.moverizquierda(getWidth(), getHeight());
+			}
 
 			}
 		
@@ -183,9 +202,21 @@ public class Game extends JPanel implements Runnable, KeyListener, ActionListene
 		if (e.getKeyCode() == KeyEvent.VK_DOWN) {       //Tecla flecha abajo
 			down1 =true;
 	}
+		if (e.getKeyCode() == KeyEvent.VK_RIGHT) {      //Tecla flecha derecha
+			right = true;
+	}
+		if (e.getKeyCode() == KeyEvent.VK_LEFT) {       //Tecla flecha left
+			left = true;
+	}
 		
 	    if (e.getKeyCode() == KeyEvent.VK_W) {          //Tecla W
 			up2 = true; 
+	}
+	    if (e.getKeyCode() == KeyEvent.VK_D) {          //Tecla D
+	    	right2 = true;
+	}
+	    if (e.getKeyCode() == KeyEvent.VK_A) {          //Tecla A
+	    	left2 = true;
 	}
 			
 		if (e.getKeyCode() == KeyEvent.VK_S) {          //Tecla S
@@ -193,6 +224,8 @@ public class Game extends JPanel implements Runnable, KeyListener, ActionListene
 	}
 		if (e.getKeyCode() == KeyEvent.VK_SPACE) {      //Tecla espacio
 			juego=true;
+	
+			
 			
 		}
 	
@@ -208,9 +241,22 @@ public class Game extends JPanel implements Runnable, KeyListener, ActionListene
 		if (e.getKeyCode() == KeyEvent.VK_DOWN) {       //Tecla flecha abajo
 			down1 =false;
 	}
+		if (e.getKeyCode() == KeyEvent.VK_RIGHT) {      //Tecla flecha derecha
+			right = false;
+	}
+		
+		if (e.getKeyCode() == KeyEvent.VK_LEFT)  {      //Tecla flecha left
+			left = false;
+	}
 		
 	    if (e.getKeyCode() == KeyEvent.VK_W) {          //Tecla W
 			up2 = false;
+	}
+	    if (e.getKeyCode() == KeyEvent.VK_D) {          //Tecla D
+	    	right2 = false;
+	}
+	    if (e.getKeyCode() == KeyEvent.VK_A) {          //Tecla A
+	    	left2 = false;
 	}
 			
 		if (e.getKeyCode() == KeyEvent.VK_S) {          //Tecla S
