@@ -96,10 +96,10 @@ public class Game extends JPanel implements Runnable, KeyListener, ActionListene
 		g2d.drawImage(player1.getImg().getImage(), player1.getX(), player1.getY(), player1.getW(), player1.getH(), this);
 		g2d.drawImage(player2.getImg().getImage(), player2.getX(), player2.getY(), player2.getW(), player2.getH(), this);
 		g2d.setColor(Color.BLACK);
-		g2d.drawRect(0, 180, 1900, 20); //Parte superior
-		g2d.drawRect(0, 840, 1900, 20); //Parte inferior
-		g2d.drawRect(160, 200, 20, 640); //Parte izquierda
-		g2d.drawRect(1730, 200, 20, 640); //Parte derecha
+		//g2d.drawRect(0, 180, 1900, 20); //Parte superior
+		//g2d.drawRect(0, 840, 1900, 20); //Parte inferior
+		//g2d.drawRect(160, 200, 20, 640); //Parte izquierda
+		//g2d.drawRect(1730, 200, 20, 640); //Parte derecha
 
 		
 		moveplayers();

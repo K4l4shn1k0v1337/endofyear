@@ -55,97 +55,41 @@ public class Tank {
 
 
 public void moverpalaarriba (int screenw, int screenh) {
-	//x+=dx;
-	y+=-dy;		
-	if((x>=screenw)) {
-		dx = dx * 1;
-	
-	}
-	
-	
-	if((x<=0)) {
-		dx = dx * 1;
-	}
-	
-	
-	
-if((y>=555)) {
-dy = dy * 1;
-
+	   y += -dy;
+	    
+	    // check for collision with invisible wall at top of screen
+	    if (y < 190) {
+	        y = 190;
+	    }
 }
-
-
-	if((y<=60)) {
-		dy = dy * 1;
-	
-}
-}
-
 public void moverderecha (int screenx, int screeny) {
-	x+=dx;	
-	if((x>=screenx)) {
-		dx = dx * 1;
+	x += dx;
+	screenx=500;
 	
-	}
-	
-	
-	if((x<=0)) {
-		dx = dx * 1;
-	}
-	
-	
-	
-if((y>=555)) {
-dy = dy * 1;
-
+	 // check for collision with invisible wall at right side of screen
+    if (x + w > 1735) {
+        x = 1735 - w;
+    }
 }
 
-
-	if((y<=60)) {
-		dy = dy * 1;
-	
-}
-}
-	
 
 
 public void moverpalaabajo (int screenw, int screenh) {
-	//x+=dx;
-	y+=dy;		
-	if((x>=screenw)) {
-		dx = dx * 1;
+	  y += dy;
+	    
+	    // check for collision with invisible wall at bottom of screen
+	    if (y + h > 850) {
+	        y = 850 - h;
+	    }
 	}
-	if((x<=0)) {
-		dx = dx * 1;
-	}
-if((y>=555)) {
-dy = dy * 1;
-}
 
-	if((y<=60)) {
-		dy = dy * 1;
-	
-}
-}
-	
 public void moverizquierda (int screenw, int screenh) {
 	
-	x+=-dx;
-			
-		if((x>=screenw)) {
-			dx = dx * 1;
-		}
-		if((x<=0)) {
-			dx = dx * 1;
-		}
-	if((y>=555)) {
-	dy = dy * 1;
+	 x += -dx;
+	    
+	    // check for collision with invisible wall at left of screen
+	    if (x < 180) {
+	        x = 180;
+	    }
 	}
-
-		if((y<=60)) {
-			dy = dy * 1;
-		
-	}
-		
-}
 }
