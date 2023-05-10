@@ -7,6 +7,7 @@ public class Tank {
 	private int x, y, w, h, dy, dx, score;
 	private Color col;
 	private ImageIcon img;
+
 	//might need dy
 
 	public Tank (int xV, int yV, int wV, int hV, String file, int ddx, int ddy) {
@@ -92,4 +93,9 @@ public void moverizquierda (int screenw, int screenh) {
 	        x = 180;
 	    }
 	}
+public int getDirection() {
+	return 0;
+}
+
+
 }

@@ -3,6 +3,7 @@ import javax.swing.ImageIcon;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
 
 	//How to create a menu for my game?
@@ -14,10 +15,10 @@ public class Game extends JPanel implements Runnable, KeyListener, ActionListene
   private Tank player1, player2;
   private Walls upwall, downwall, rightwall, leftwall;
   private Walls walls;
-  //private Clip clip;
-
   private boolean playMusic;
   private Sound s;
+  private ArrayList <PlayerProj> pbluebullet;
+ 
   private boolean juego = false;
   private boolean gameover = false;
   private boolean up1 = false;
@@ -28,6 +29,7 @@ public class Game extends JPanel implements Runnable, KeyListener, ActionListene
   private boolean right2 = false;
   private boolean left = false;
   private boolean left2 = false;  
+  private boolean disparar = false;
  
 	
 	public Game() {
@@ -45,8 +47,11 @@ public class Game extends JPanel implements Runnable, KeyListener, ActionListene
 	downwall  = new Walls(0, 840, 1900, 20);
 	rightwall  = new Walls(1730, 200, 20, 640);
 	leftwall  = new Walls(160, 200, 20, 640);
+	pbluebullet = new ArrayList <PlayerProj> ();
+
 	
 	
+
 	
 	
    s =new Sound();
@@ -86,15 +91,20 @@ public class Game extends JPanel implements Runnable, KeyListener, ActionListene
 		if (back==null) {
 			back =(BufferedImage) (createImage(getWidth(), getHeight()));
 				}
-
+		
 		Graphics g2d = back.createGraphics();
 		g2d.clearRect(0, 0, getSize().width, getSize().height); 
+		
+
+	       
 		g2d.drawImage(background.getImage(), 0, 0, getWidth(), getHeight(), this); 
 
 	
 
 		g2d.drawImage(player1.getImg().getImage(), player1.getX(), player1.getY(), player1.getW(), player1.getH(), this);
 		g2d.drawImage(player2.getImg().getImage(), player2.getX(), player2.getY(), player2.getW(), player2.getH(), this);
+		// draw the bullets
+	    
 		g2d.setColor(Color.BLACK);
 		//g2d.drawRect(0, 180, 1900, 20); //Parte superior
 		//g2d.drawRect(0, 840, 1900, 20); //Parte inferior
@@ -103,7 +113,7 @@ public class Game extends JPanel implements Runnable, KeyListener, ActionListene
 
 		
 		moveplayers();
-		
+		drawpbullet(g2d);     
 		
 		//Start message                                                  //Mensaje de Inicio
 		if (!juego) {
@@ -146,6 +156,16 @@ public class Game extends JPanel implements Runnable, KeyListener, ActionListene
 	
 	}
 
+	
+	
+	 private void drawpbullet(Graphics g2d) {
+         // TODO Auto-generated method stub
+         for(PlayerProj pa: pbluebullet) {
+                         g2d.drawImage(pa.getI().getImage(), pa.getX(),pa.getY(), pa.getW(), pa.getH(),this);
+         pa.bmove();
+         }
+         
+	 }
 	public void moveplayers() {
 		if (juego) {
 			
@@ -183,9 +203,14 @@ public class Game extends JPanel implements Runnable, KeyListener, ActionListene
 			if (left2) {
 				player1.moverizquierda(getWidth(), getHeight());
 			}
-
-			}
-		
+			
+			if (disparar) {
+				 pbluebullet.add(new PlayerProj( player1.getX()+50, player1.getY()-50));
+            }
+            
+           
+		}
+            
 		}
 	
 	@Override
@@ -224,6 +249,11 @@ public class Game extends JPanel implements Runnable, KeyListener, ActionListene
 	}
 		if (e.getKeyCode() == KeyEvent.VK_SPACE) {      //Tecla espacio
 			juego=true;
+			
+	}
+		if (e.getKeyCode() == KeyEvent.VK_SHIFT) {
+			disparar=true;
+			
 	
 			
 			
@@ -261,9 +291,14 @@ public class Game extends JPanel implements Runnable, KeyListener, ActionListene
 			
 		if (e.getKeyCode() == KeyEvent.VK_S) {          //Tecla S
 			down2 = false;
-			
 	}
-		
+		if (e.getKeyCode() == KeyEvent.VK_SPACE) {
+			disparar = false;
+	}
+		if (e.getKeyCode() == KeyEvent.VK_SHIFT) {
+			disparar = false;
+			
+		}
 	}
 	@Override
 	public void keyTyped(KeyEvent e) { }                //Teclas presionadas
