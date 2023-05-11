@@ -12,8 +12,8 @@ public Image getImage;
 
 
 	public Projectile() {
-		x=2000;
-		y=2000;
+		x=0;
+		y=0;
 		w=0;
 		h=0;
 	}
@@ -38,6 +38,9 @@ public Image getImage;
 		
 		
 		}
+	public void bleftmove () {
+		x-=dx;
+	}
 
 		
 	

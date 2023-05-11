@@ -17,8 +17,9 @@ public class Game extends JPanel implements Runnable, KeyListener, ActionListene
   private Walls walls;
   private boolean playMusic;
   private Sound s;
-  private ArrayList <PlayerProj> pbluebullet;
- 
+  
+  private ArrayList <PlayerBlueProj> pbluebullet;
+  private ArrayList <PlayerGreenProj> pgreenbullet;
   private boolean juego = false;
   private boolean gameover = false;
   private boolean up1 = false;
@@ -29,7 +30,8 @@ public class Game extends JPanel implements Runnable, KeyListener, ActionListene
   private boolean right2 = false;
   private boolean left = false;
   private boolean left2 = false;  
-  private boolean disparar = false;
+  private boolean dispararazul = false;
+  private boolean dispararverde = false;
  
 	
 	public Game() {
@@ -47,8 +49,9 @@ public class Game extends JPanel implements Runnable, KeyListener, ActionListene
 	downwall  = new Walls(0, 840, 1900, 20);
 	rightwall  = new Walls(1730, 200, 20, 640);
 	leftwall  = new Walls(160, 200, 20, 640);
-	pbluebullet = new ArrayList <PlayerProj> ();
-
+	pbluebullet = new ArrayList <PlayerBlueProj> ();
+	pgreenbullet = new ArrayList <PlayerGreenProj>();
+	
 	
 	
 
@@ -114,6 +117,9 @@ public class Game extends JPanel implements Runnable, KeyListener, ActionListene
 		
 		moveplayers();
 		drawpbullet(g2d);     
+		drawgreenbullet(g2d);
+		greenbullets();
+		bluebullets();
 		
 		//Start message                                                  //Mensaje de Inicio
 		if (!juego) {
@@ -160,12 +166,45 @@ public class Game extends JPanel implements Runnable, KeyListener, ActionListene
 	
 	 private void drawpbullet(Graphics g2d) {
          // TODO Auto-generated method stub
-         for(PlayerProj pa: pbluebullet) {
+         for(PlayerBlueProj pa: pbluebullet) {
                          g2d.drawImage(pa.getI().getImage(), pa.getX(),pa.getY(), pa.getW(), pa.getH(),this);
          pa.bmove();
+         
+        
          }
          
 	 }
+	 
+	 private void drawgreenbullet (Graphics g2d) {
+		 
+		for(PlayerGreenProj pg: pgreenbullet) {
+			g2d.drawImage(pg.getI().getImage(), pg.getX(),pg.getY(), pg.getW(), pg.getH(),this);
+	         pg.bleftmove();
+	         
+	         
+	         
+	         }
+	 }
+	 
+	 public void greenbullets() {
+			if (juego) {
+	        	 if (dispararverde) {
+	        		 pgreenbullet.add(new PlayerGreenProj( player2.getX()+20, player2.getY()-170));
+	        	 }
+	         }
+			
+		}
+					
+        public void bluebullets () {
+     	   
+     	   if (juego) {
+           	 if (dispararazul) {
+   					pbluebullet.add(new PlayerBlueProj( player1.getX()-34, player1.getY()+24));
+   			
+            
+           	 }
+        }
+        }
 	public void moveplayers() {
 		if (juego) {
 			
@@ -203,15 +242,9 @@ public class Game extends JPanel implements Runnable, KeyListener, ActionListene
 			if (left2) {
 				player1.moverizquierda(getWidth(), getHeight());
 			}
-			
-			if (disparar) {
-				 pbluebullet.add(new PlayerProj( player1.getX()+50, player1.getY()-50));
-            }
-            
-           
 		}
-            
-		}
+	}
+		
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {       //Acciones performadas
@@ -249,10 +282,12 @@ public class Game extends JPanel implements Runnable, KeyListener, ActionListene
 	}
 		if (e.getKeyCode() == KeyEvent.VK_SPACE) {      //Tecla espacio
 			juego=true;
+			dispararverde=true;
 			
 	}
-		if (e.getKeyCode() == KeyEvent.VK_SHIFT) {
-			disparar=true;
+		if (e.getKeyCode() == KeyEvent.VK_SHIFT) {      //Tecla shift
+			dispararazul=true;
+			
 			
 	
 			
@@ -293,10 +328,10 @@ public class Game extends JPanel implements Runnable, KeyListener, ActionListene
 			down2 = false;
 	}
 		if (e.getKeyCode() == KeyEvent.VK_SPACE) {
-			disparar = false;
+			dispararverde = false;
 	}
 		if (e.getKeyCode() == KeyEvent.VK_SHIFT) {
-			disparar = false;
+			dispararazul = false;
 			
 		}
 	}
