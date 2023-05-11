@@ -24,7 +24,7 @@ public Image getImage;
 		h=50;
 		x=xV;
 		y=yV;
-		dx=2;
+		dx=5;
 		img=i;
 	}
 

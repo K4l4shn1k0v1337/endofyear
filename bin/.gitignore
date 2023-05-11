@@ -1,10 +1,9 @@
 /Game.class
 /Main.class
+/PlayerBlueProj.class
+/PlayerGreenProj.class
+/Projectile.class
+/Shoot.class
 /Sound.class
 /Tank.class
 /Walls.class
-/PlayerProj.class
-/Projectile.class
-/Shoot.class
-/PlayerBlueProj.class
-/PlayerGreenProj.class

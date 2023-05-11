@@ -189,7 +189,7 @@ public class Game extends JPanel implements Runnable, KeyListener, ActionListene
 	 public void greenbullets() {
 			if (juego) {
 	        	 if (dispararverde) {
-	        		 pgreenbullet.add(new PlayerGreenProj( player2.getX()+20, player2.getY()-170));
+	        		 pgreenbullet.add(new PlayerGreenProj( player2.getX()-34, player2.getY()+24));
 	        	 }
 	         }
 			
@@ -199,7 +199,7 @@ public class Game extends JPanel implements Runnable, KeyListener, ActionListene
      	   
      	   if (juego) {
            	 if (dispararazul) {
-   					pbluebullet.add(new PlayerBlueProj( player1.getX()-34, player1.getY()+24));
+   					pbluebullet.add(new PlayerBlueProj( player1.getX()+80, player1.getY()+26));
    			
             
            	 }
@@ -285,7 +285,7 @@ public class Game extends JPanel implements Runnable, KeyListener, ActionListene
 			dispararverde=true;
 			
 	}
-		if (e.getKeyCode() == KeyEvent.VK_SHIFT) {      //Tecla shift
+		if (e.getKeyCode() == KeyEvent.VK_C) {      //Tecla shift
 			dispararazul=true;
 			
 			
@@ -330,7 +330,7 @@ public class Game extends JPanel implements Runnable, KeyListener, ActionListene
 		if (e.getKeyCode() == KeyEvent.VK_SPACE) {
 			dispararverde = false;
 	}
-		if (e.getKeyCode() == KeyEvent.VK_SHIFT) {
+		if (e.getKeyCode() == KeyEvent.VK_C) {
 			dispararazul = false;
 			
 		}
