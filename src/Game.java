@@ -4,6 +4,10 @@ import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+
+
 
 
 	//How to create a menu for my game?
@@ -11,12 +15,15 @@ import java.util.ArrayList;
 public class Game extends JPanel implements Runnable, KeyListener, ActionListener{
 	private static final long serialVersionUID = 1L;
 	private BufferedImage back;
+	
   private ImageIcon background;
   private Tank player1, player2;
   private Walls upwall, downwall, rightwall, leftwall;
   private Walls walls;
   private boolean playMusic;
   private Sound s;
+  private boolean cPressed = false;
+  private boolean spacePressed = false;
   
   private ArrayList <PlayerBlueProj> pbluebullet;
   private ArrayList <PlayerGreenProj> pgreenbullet;
@@ -32,6 +39,7 @@ public class Game extends JPanel implements Runnable, KeyListener, ActionListene
   private boolean left2 = false;  
   private boolean dispararazul = false;
   private boolean dispararverde = false;
+  private SoundPlayer st;
  
 	
 	public Game() {
@@ -51,6 +59,7 @@ public class Game extends JPanel implements Runnable, KeyListener, ActionListene
 	leftwall  = new Walls(160, 200, 20, 640);
 	pbluebullet = new ArrayList <PlayerBlueProj> ();
 	pgreenbullet = new ArrayList <PlayerGreenProj>();
+	st = new SoundPlayer();
 	
 	
 	
@@ -60,11 +69,15 @@ public class Game extends JPanel implements Runnable, KeyListener, ActionListene
    s =new Sound();
     s.playmusic("battle-of-the-dragons-8037.wav");
                         		
+    
+    
 
+    
 
 	
 	new Thread(this).start();	
 	this.addKeyListener(this);
+	addKeyListener(this);
 
     this.setFocusable(true);
     this.requestFocusInWindow();                                   
@@ -119,7 +132,9 @@ public class Game extends JPanel implements Runnable, KeyListener, ActionListene
 		drawpbullet(g2d);     
 		drawgreenbullet(g2d);
 		greenbullets();
-		bluebullets();
+		
+		
+		
 		
 		//Start message                                                  //Mensaje de Inicio
 		if (!juego) {
@@ -186,25 +201,18 @@ public class Game extends JPanel implements Runnable, KeyListener, ActionListene
 	         }
 	 }
 	 
+	
 	 public void greenbullets() {
 			if (juego) {
 	        	 if (dispararverde) {
-	        		 pgreenbullet.add(new PlayerGreenProj( player2.getX()-34, player2.getY()+24));
+	        		 
+	        		 
+	        		 
 	        	 }
 	         }
 			
 		}
 					
-        public void bluebullets () {
-     	   
-     	   if (juego) {
-           	 if (dispararazul) {
-   					pbluebullet.add(new PlayerBlueProj( player1.getX()+80, player1.getY()+26));
-   			
-            
-           	 }
-        }
-        }
 	public void moveplayers() {
 		if (juego) {
 			
@@ -280,21 +288,24 @@ public class Game extends JPanel implements Runnable, KeyListener, ActionListene
 		if (e.getKeyCode() == KeyEvent.VK_S) {          //Tecla S
 			down2 = true;
 	}
-		if (e.getKeyCode() == KeyEvent.VK_SPACE) {      //Tecla espacio
-			juego=true;
+		if (e.getKeyCode() == KeyEvent.VK_SPACE && !spacePressed) {      //Tecla espacio
 			dispararverde=true;
-			
+			spacePressed = true;
 	}
-		if (e.getKeyCode() == KeyEvent.VK_C) {      //Tecla shift
-			dispararazul=true;
-			
-			
-	
+		
+		if (e.getKeyCode() == KeyEvent.VK_C && !cPressed) {
+            dispararazul=true;
+            cPressed = true;
+          
+        }
+		
+		
+		if  (e.getKeyCode() == KeyEvent.VK_ENTER) {
+			juego=true;
 			
 			
 		}
-	
-	}
+    }
 	
 	@Override
 	public void keyReleased(KeyEvent e) {               //Activar teclas
@@ -327,14 +338,30 @@ public class Game extends JPanel implements Runnable, KeyListener, ActionListene
 		if (e.getKeyCode() == KeyEvent.VK_S) {          //Tecla S
 			down2 = false;
 	}
-		if (e.getKeyCode() == KeyEvent.VK_SPACE) {
+		if (e.getKeyCode() == KeyEvent.VK_SPACE && spacePressed) {
 			dispararverde = false;
+			spacePressed = false;
+			if (juego)
+			st.playtirosound("disparo.wav");
+			if (juego)
+			pgreenbullet.add(new PlayerGreenProj( player2.getX()-34, player2.getY()+24));
 	}
-		if (e.getKeyCode() == KeyEvent.VK_C) {
+		if (e.getKeyCode() == KeyEvent.VK_C && cPressed) {
 			dispararazul = false;
+			cPressed = false;
+			if (juego)
+			st.playtirosound("disparo.wav");
+			if (juego)
+			pbluebullet.add(new PlayerBlueProj( player1.getX()+80, player1.getY()+26));
+	}
+		
+		if  (e.getKeyCode() == KeyEvent.VK_ENTER) {
+			juego=true;
+			
 			
 		}
 	}
+	
 	@Override
 	public void keyTyped(KeyEvent e) { }                //Teclas presionadas
 	

@@ -6,19 +6,15 @@ public class Shoot
 {
 	
 	public void playmusic(String musicfile) {
-		File soundFile = new File(musicfile);
-		try {
-			Clip clip = AudioSystem.getClip();
-			AudioInputStream inputStream= AudioSystem.getAudioInputStream(soundFile);
-			clip.open(inputStream);
-			clip.loop(clip.LOOP_CONTINUOUSLY);
-			clip.start();
-		}
-	catch(Exception e)
-		{
-		System.out.println(e);
-		}
-	}
+        try {
+            Clip clip = AudioSystem.getClip();
+            clip.open(AudioSystem.getAudioInputStream(new File("disparo.wav")));
+            clip.start();
+            clip.drain();
+            clip.stop();
+            clip.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }
-
-
