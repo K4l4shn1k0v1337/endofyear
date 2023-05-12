@@ -122,16 +122,19 @@ public class Game extends JPanel implements Runnable, KeyListener, ActionListene
 		// draw the bullets
 	    
 		g2d.setColor(Color.BLACK);
-		//g2d.drawRect(0, 180, 1900, 20); //Parte superior
-		//g2d.drawRect(0, 840, 1900, 20); //Parte inferior
-		//g2d.drawRect(160, 200, 20, 640); //Parte izquierda
-		//g2d.drawRect(1730, 200, 20, 640); //Parte derecha
+		
+		//Score                                                          //Puntuacion
+		g2d.setColor(Color.BLACK);
+		g2d.setFont(new Font("Consolas", Font.PLAIN,22));
+		g2d.drawString("SCORE: " + player2.getScore(), 560, 100);
+		g2d.drawString("SCORE: " + player1.getScore(), 710, 100);
+		
 
 		
 		moveplayers();
 		drawpbullet(g2d);     
 		drawgreenbullet(g2d);
-		greenbullets();
+		collisiongame();
 		
 		
 		
@@ -202,16 +205,16 @@ public class Game extends JPanel implements Runnable, KeyListener, ActionListene
 	 }
 	 
 	
-	 public void greenbullets() {
+	 public void collisiongame() {
 			if (juego) {
-	        	 if (dispararverde) {
+				
 	        		 
 	        		 
-	        		 
+	        		
 	        	 }
 	         }
 			
-		}
+		
 					
 	public void moveplayers() {
 		if (juego) {
@@ -249,7 +252,10 @@ public class Game extends JPanel implements Runnable, KeyListener, ActionListene
 			
 			if (left2) {
 				player1.moverizquierda(getWidth(), getHeight());
+				
 			}
+			
+			
 		}
 	}
 		

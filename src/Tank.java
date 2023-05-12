@@ -21,6 +21,7 @@ public class Tank {
 		dx = ddx;
 		dy = ddy;
 		img = new ImageIcon(file);
+		score=0;
 		
 		
 		
@@ -100,6 +101,14 @@ public void moverizquierda (int screenw, int screenh) {
 
 public int getDirection() {
 	return 0;
+}
+//method to check for collision with another tank
+public boolean collision(Tank t) {
+ // check if the two tanks' rectangles intersect
+ return (x < t.getX() + t.getW() &&
+         x + w > t.getX() &&
+         y < t.getY() + t.getH() &&
+         y + h > t.getY());
 }
 
 
