@@ -5,7 +5,10 @@ import java.awt.Rectangle;
 import javax.swing.ImageIcon;
 
 public class Projectile {
-private int x,y,w,h,dx;
+private int x,y;
+protected int w;
+private int h;
+private int dx;
 private Color col;
 private ImageIcon img;
 public Image getImage;
@@ -80,5 +83,19 @@ public void remove() {
 	w=0;
 	h=0;
 }
+
+public boolean collision(Tank t) {
+	
+	if(y+h >= t.getY() && x<=t.getX()+t.getW() && y+h <= t.getY()+t.getH() && x+w >= t.getX()) {
+		
+		System.out.println(" collision");
+	
+		return true;
+	}
+	
+	return false;
+}
+
+
 }
 

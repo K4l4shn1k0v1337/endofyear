@@ -24,9 +24,12 @@ public class Game extends JPanel implements Runnable, KeyListener, ActionListene
   private Sound s;
   private boolean cPressed = false;
   private boolean spacePressed = false;
+  private Projectile bullets;
+  
   
   private ArrayList <PlayerBlueProj> pbluebullet;
   private ArrayList <PlayerGreenProj> pgreenbullet;
+  
   private boolean juego = false;
   private boolean gameover = false;
   private boolean up1 = false;
@@ -40,8 +43,7 @@ public class Game extends JPanel implements Runnable, KeyListener, ActionListene
   private boolean dispararazul = false;
   private boolean dispararverde = false;
   private SoundPlayer st;
- 
-	
+
 	public Game() {
 		
 
@@ -50,8 +52,8 @@ public class Game extends JPanel implements Runnable, KeyListener, ActionListene
 		
     background = new ImageIcon ("background.jpg");
 		back=null;
-    player1 = new Tank(250,300,100,100, "bluetank.png", 2 ,2 );
-    player2 = new Tank(850,300,100,100, "greentank.png", 2 ,2 );
+    player1 = new Tank(250,300,100,100, "bluetank.png", 2 ,2);
+    player2 = new Tank(850,300,100,100, "greentank.png", 2 ,2);
 
 	upwall  = new Walls(0, 180, 1900, 20);
 	downwall  = new Walls(0, 840, 1900, 20);
@@ -61,9 +63,6 @@ public class Game extends JPanel implements Runnable, KeyListener, ActionListene
 	pgreenbullet = new ArrayList <PlayerGreenProj>();
 	st = new SoundPlayer();
 	
-	
-	
-
 	
 	
    s =new Sound();
@@ -129,13 +128,13 @@ public class Game extends JPanel implements Runnable, KeyListener, ActionListene
 		g2d.drawString("SCORE: " + player2.getScore(), 560, 100);
 		g2d.drawString("SCORE: " + player1.getScore(), 710, 100);
 		
+		
 
 		
 		moveplayers();
 		drawpbullet(g2d);     
 		drawgreenbullet(g2d);
-		collisiongame();
-		
+		collisionBullets(g2d);
 		
 		
 		
@@ -205,16 +204,38 @@ public class Game extends JPanel implements Runnable, KeyListener, ActionListene
 	 }
 	 
 	
-	 public void collisiongame() {
-			if (juego) {
-				
-	        		 
-	        		 
-	        		
-	        	 }
-	         }
-			
-		
+	 private void collisionBullets(Graphics g2d) {
+		    // Check collision between pbluebullet and player2
+		    for (int i = 0; i < pbluebullet.size(); i++) {
+		        PlayerBlueProj pb = pbluebullet.get(i);
+		        Rectangle pbRect = new Rectangle(pb.getX(), pb.getY(), pb.getW(), pb.getH());
+		        Rectangle player2Rect = new Rectangle(player2.getX(), player2.getY(), player2.getW(), player2.getH());
+		        if (pbRect.intersects(player2Rect)) {
+		            pbluebullet.remove(i);
+		        //    player2.decreaseHealth(10); // Decrease player2's health by 10 (or some other amount)
+		            //g2d.fillRect(0, 0, 1000, 1000);
+		            player2.increaseScore(1);
+		          
+		        }
+		    }
+
+		    // Check collision between pgreenbullet and player1
+		    for (int i = 0; i < pgreenbullet.size(); i++) {
+		        PlayerGreenProj pg = pgreenbullet.get(i);
+		        Rectangle pgRect = new Rectangle(pg.getX(), pg.getY(), pg.getW(), pg.getH());
+		        Rectangle player1Rect = new Rectangle(player1.getX(), player1.getY(), player1.getW(), player1.getH());
+		        if (pgRect.intersects(player1Rect)) {
+		            pgreenbullet.remove(i);
+		          //  player1.decreaseHealth(10); // Decrease player1's health by 10 (or some other amount)
+		         //   g2d.fillRect(0, 0, 1000, 1000);
+		            player1.increaseScore(1);
+		            
+		        }
+		    }
+		}
+
+
+					
 					
 	public void moveplayers() {
 		if (juego) {
@@ -358,7 +379,7 @@ public class Game extends JPanel implements Runnable, KeyListener, ActionListene
 			if (juego)
 			st.playtirosound("disparo.wav");
 			if (juego)
-			pbluebullet.add(new PlayerBlueProj( player1.getX()+80, player1.getY()+26));
+			pbluebullet.add(new PlayerBlueProj( player1.getX()+80, player1.getY()+26)); 
 	}
 		
 		if  (e.getKeyCode() == KeyEvent.VK_ENTER) {

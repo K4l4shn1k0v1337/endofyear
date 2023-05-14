@@ -5,7 +5,6 @@ import javax.swing.ImageIcon;
 public class Tank {
 
 	private int x, y, w, h, dy, dx, score;
-	private Color col;
 	private ImageIcon img;
 	
 
@@ -111,5 +110,5 @@ public boolean collision(Tank t) {
          y + h > t.getY());
 }
 
-
 }
+
