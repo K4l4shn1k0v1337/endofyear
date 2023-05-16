@@ -16,10 +16,10 @@ public class Game extends JPanel implements Runnable, KeyListener, ActionListene
 	private static final long serialVersionUID = 1L;
 	private BufferedImage back;
 	
-  private ImageIcon background;
+  private ImageIcon background, menu;
   private Tank player1, player2;
-  private Walls upwall, downwall, rightwall, leftwall;
-  private Walls walls;
+  private Walls upwall, downwall, rightwall, leftwall, lastwall;
+  
   private boolean playMusic;
   private Sound s;
   private boolean cPressed = false;
@@ -51,14 +51,16 @@ public class Game extends JPanel implements Runnable, KeyListener, ActionListene
 		new Thread(this).start();
 		
     background = new ImageIcon ("background.jpg");
+    menu = new ImageIcon ("menu.png");
 		back=null;
-    player1 = new Tank(250,300,100,100, "bluetank.png", 2 ,2);
-    player2 = new Tank(850,300,100,100, "greentank.png", 2 ,2);
+    player1 = new Tank(250,475,100,100, "bluetank.png", 2 ,2);
+    player2 = new Tank(1550,475,100,100, "greentank.png", 2 ,2);
 
-	upwall  = new Walls(0, 180, 1900, 20);
-	downwall  = new Walls(0, 840, 1900, 20);
-	rightwall  = new Walls(1730, 200, 20, 640);
-	leftwall  = new Walls(160, 200, 20, 640);
+	upwall  = new Walls(500, 280, 20, 180);
+	downwall  = new Walls(700, 570, 20, 180);
+	rightwall  = new Walls(1400, 280, 20, 180);
+	leftwall  = new Walls(1200, 570, 20, 180);
+	lastwall  = new Walls(950, 300, 20, 180);
 	pbluebullet = new ArrayList <PlayerBlueProj> ();
 	pgreenbullet = new ArrayList <PlayerGreenProj>();
 	st = new SoundPlayer();
@@ -113,12 +115,18 @@ public class Game extends JPanel implements Runnable, KeyListener, ActionListene
 
 	       
 		g2d.drawImage(background.getImage(), 0, 0, getWidth(), getHeight(), this); 
-
+		//Walls 
+		g2d.fillRect(500, 280, 20, 180);
+		g2d.fillRect(700, 570, 20, 180);
+		g2d.fillRect(1400, 280, 20, 180);
+		g2d.fillRect(1200, 570, 20, 180);
+		g2d.fillRect(950, 300, 20, 180);
 	
 
 		g2d.drawImage(player1.getImg().getImage(), player1.getX(), player1.getY(), player1.getW(), player1.getH(), this);
 		g2d.drawImage(player2.getImg().getImage(), player2.getX(), player2.getY(), player2.getW(), player2.getH(), this);
 		// draw the bullets
+	
 	    
 		g2d.setColor(Color.BLACK);
 		
@@ -144,6 +152,7 @@ public class Game extends JPanel implements Runnable, KeyListener, ActionListene
 			g2d.fillRect(445, 195, 470, 50);
 			g2d.setColor(Color.WHITE);
 			g2d.drawString("Press enter to start", 450, 230);
+			g2d.drawImage(menu.getImage(), 0, 0, getWidth(), getHeight(), this); 
 			
 		}
 		//Win and Lose                                                   //Ganador y perdedor
@@ -205,34 +214,76 @@ public class Game extends JPanel implements Runnable, KeyListener, ActionListene
 	 
 	
 	 private void collisionBullets(Graphics g2d) {
-		    // Check collision between pbluebullet and player2
+		    // Check collision between pbluebullet and walls
 		    for (int i = 0; i < pbluebullet.size(); i++) {
 		        PlayerBlueProj pb = pbluebullet.get(i);
 		        Rectangle pbRect = new Rectangle(pb.getX(), pb.getY(), pb.getW(), pb.getH());
-		        Rectangle player2Rect = new Rectangle(player2.getX(), player2.getY(), player2.getW(), player2.getH());
-		        if (pbRect.intersects(player2Rect)) {
+
+		        // Check collision with upwall
+		        Rectangle upwallRect = new Rectangle(upwall.getX(), upwall.getY(), upwall.getW(), upwall.getH());
+		        if (pbRect.intersects(upwallRect)) {
 		            pbluebullet.remove(i);
-		        //    player2.decreaseHealth(10); // Decrease player2's health by 10 (or some other amount)
-		            //g2d.fillRect(0, 0, 1000, 1000);
-		            player2.increaseScore(1);
-		          
+		            continue;
+		        }
+
+		        // Check collision with downwall
+		        Rectangle downwallRect = new Rectangle(downwall.getX(), downwall.getY(), downwall.getW(), downwall.getH());
+		        if (pbRect.intersects(downwallRect)) {
+		            pbluebullet.remove(i);
+		            continue;
+		        }
+
+		        // Check collision with rightwall
+		        Rectangle rightwallRect = new Rectangle(rightwall.getX(), rightwall.getY(), rightwall.getW(), rightwall.getH());
+		        if (pbRect.intersects(rightwallRect)) {
+		            pbluebullet.remove(i);
+		            continue;
+		        }
+
+		        // Check collision with leftwall
+		        Rectangle leftwallRect = new Rectangle(leftwall.getX(), leftwall.getY(), leftwall.getW(), leftwall.getH());
+		        if (pbRect.intersects(leftwallRect)) {
+		            pbluebullet.remove(i);
+		            continue;
 		        }
 		    }
 
-		    // Check collision between pgreenbullet and player1
+		    // Check collision between pgreenbullet and walls
 		    for (int i = 0; i < pgreenbullet.size(); i++) {
 		        PlayerGreenProj pg = pgreenbullet.get(i);
 		        Rectangle pgRect = new Rectangle(pg.getX(), pg.getY(), pg.getW(), pg.getH());
-		        Rectangle player1Rect = new Rectangle(player1.getX(), player1.getY(), player1.getW(), player1.getH());
-		        if (pgRect.intersects(player1Rect)) {
+
+		        // Check collision with upwall
+		        Rectangle upwallRect = new Rectangle(upwall.getX(), upwall.getY(), upwall.getW(), upwall.getH());
+		        if (pgRect.intersects(upwallRect)) {
 		            pgreenbullet.remove(i);
-		          //  player1.decreaseHealth(10); // Decrease player1's health by 10 (or some other amount)
-		         //   g2d.fillRect(0, 0, 1000, 1000);
-		            player1.increaseScore(1);
-		            
+		            continue;
+		        }
+
+		        // Check collision with downwall
+		        Rectangle downwallRect = new Rectangle(downwall.getX(), downwall.getY(), downwall.getW(), downwall.getH());
+		        if (pgRect.intersects(downwallRect)) {
+		            pgreenbullet.remove(i);
+		            continue;
+		        }
+
+		        // Check collision with rightwall
+		        Rectangle rightwallRect = new Rectangle(rightwall.getX(), rightwall.getY(), rightwall.getW(), rightwall.getH());
+		        if (pgRect.intersects(rightwallRect)) {
+		            pgreenbullet.remove(i);
+		            continue;
+		        }
+
+		        // Check collision with leftwall
+		        Rectangle leftwallRect = new Rectangle(leftwall.getX(), leftwall.getY(), leftwall.getW(), leftwall.getH());
+		        if (pgRect.intersects(leftwallRect)) {
+		            pgreenbullet.remove(i);
+		            continue;
 		        }
 		    }
 		}
+
+	 
 
 
 					

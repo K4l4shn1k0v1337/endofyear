@@ -1,3 +1,5 @@
+import java.awt.Rectangle;
+
 public class Walls {
   private int x, y, width, height;
 
@@ -24,5 +26,10 @@ public class Walls {
   public int getHeight() {
     return height;
   }
+
+public Rectangle getRect() {
+	
+	return null;
+}
 
 }
