@@ -1,13 +1,14 @@
 import java.awt.Rectangle;
 
 public class Walls {
-  private int x, y, width, height;
+  private int x, y, w, h;
+  
 
-  public Walls(int x, int y, int width, int height) {
+  public Walls(int x, int y, int w, int h) {
     this.x = x;
     this.y = y;
-    this.width = width;
-    this.height = height;
+    this.w = w;
+    this.h = h;
 
   }
 
@@ -19,12 +20,12 @@ public class Walls {
     return y;
   }
 
-  public int getWidth() {
-    return width;
+  public int getW() {
+    return w;
   }
 
-  public int getHeight() {
-    return height;
+  public int getH() {
+    return h;
   }
 
 public Rectangle getRect() {

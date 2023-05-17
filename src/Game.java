@@ -143,6 +143,7 @@ public class Game extends JPanel implements Runnable, KeyListener, ActionListene
 		drawpbullet(g2d);     
 		drawgreenbullet(g2d);
 		collisionBullets(g2d);
+		//collisionBulletstank(g2d);
 		
 		
 		
@@ -214,10 +215,12 @@ public class Game extends JPanel implements Runnable, KeyListener, ActionListene
 	 
 	
 	 private void collisionBullets(Graphics g2d) {
-		    // Check collision between pbluebullet and walls
+		  // Check collision between pbluebullet and walls
 		    for (int i = 0; i < pbluebullet.size(); i++) {
 		        PlayerBlueProj pb = pbluebullet.get(i);
 		        Rectangle pbRect = new Rectangle(pb.getX(), pb.getY(), pb.getW(), pb.getH());
+		       
+		        
 
 		        // Check collision with upwall
 		        Rectangle upwallRect = new Rectangle(upwall.getX(), upwall.getY(), upwall.getW(), upwall.getH());
@@ -246,12 +249,29 @@ public class Game extends JPanel implements Runnable, KeyListener, ActionListene
 		            pbluebullet.remove(i);
 		            continue;
 		        }
+		        
+		        // Check collision with lastwall
+		        Rectangle lastwallRect = new Rectangle(lastwall.getX(), lastwall.getY(), lastwall.getW(), lastwall.getH());
+		        if (pbRect.intersects(lastwallRect)) {
+		        	pbluebullet.remove(i);
+		        	continue;
+		        }
+		        
+		        // Check collision with player2
+		        Rectangle tank = new Rectangle(player2.getX(), player2.getY(), player2.getW(), player2.getH());
+		        if (pbRect.intersects(tank)) {
+		        	player2.increaseScore(i);
+		        	pbluebullet.remove(i);
+		        	continue;
+		        }
 		    }
+
 
 		    // Check collision between pgreenbullet and walls
 		    for (int i = 0; i < pgreenbullet.size(); i++) {
 		        PlayerGreenProj pg = pgreenbullet.get(i);
 		        Rectangle pgRect = new Rectangle(pg.getX(), pg.getY(), pg.getW(), pg.getH());
+		     
 
 		        // Check collision with upwall
 		        Rectangle upwallRect = new Rectangle(upwall.getX(), upwall.getY(), upwall.getW(), upwall.getH());
@@ -280,15 +300,33 @@ public class Game extends JPanel implements Runnable, KeyListener, ActionListene
 		            pgreenbullet.remove(i);
 		            continue;
 		        }
+		        
+		        // Check collision with lastwall
+		        Rectangle lastwallRect = new Rectangle(lastwall.getX(), lastwall.getY(), lastwall.getW(), lastwall.getH());
+		        if (pgRect.intersects(lastwallRect)) {
+		        	pgreenbullet.remove(i);
+		        	continue;
+		        }
+		        
+		        // Check collision with player1
+		        Rectangle tank2 = new Rectangle(player1.getX(), player1.getY(), player1.getW(), player1.getH());
+		        if (pgRect.intersects(tank2)) {
+		        	player1.increaseScore(i);
+		        	pgreenbullet.remove(i);
+		        	continue;
+		        }
 		    }
 		}
 
-	 
+	
+
 
 
 					
 					
 	public void moveplayers() {
+
+		
 		if (juego) {
 			
 			
@@ -330,7 +368,10 @@ public class Game extends JPanel implements Runnable, KeyListener, ActionListene
 			
 		}
 	}
-		
+	
+	
+	
+	
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {       //Acciones performadas

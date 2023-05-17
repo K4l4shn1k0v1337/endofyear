@@ -6,7 +6,7 @@ public class Tank {
 
 	private int x, y, w, h, dy, dx, score;
 	private ImageIcon img;
-	
+	private Walls upwall, downwall, rightwall, leftwall, lastwall;
 
 	//might need dy
 	
@@ -21,12 +21,16 @@ public class Tank {
 		dy = ddy;
 		img = new ImageIcon(file);
 		score=0;
-		
+		upwall  = new Walls(500, 280, 20, 180);
+		downwall  = new Walls(700, 570, 20, 180);
+		rightwall  = new Walls(1400, 280, 20, 180);
+		leftwall  = new Walls(1200, 570, 20, 180);
+		lastwall  = new Walls(950, 300, 20, 180);
 		
 		
 	}
 	public void increaseScore(int s) {
-		score+=s;
+		score++;
 	}
 
 	public ImageIcon getImg() {
@@ -60,12 +64,15 @@ public class Tank {
 
 
 public void moverpalaarriba (int screenw, int screenh) {
+	
 	   y += -dy;
 	    
 	    // check for collision with invisible wall at top of screen
 	    if (y < 190) {
 	        y = 190;
 	    }
+	    
+	   
 }
 public void moverderecha (int screenx, int screeny) {
 	x += dx;
