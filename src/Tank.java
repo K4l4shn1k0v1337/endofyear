@@ -58,12 +58,37 @@ public class Tank {
 	dx= dxFromGame;
 	
 	}
+	
+	public void setDy(int dyFromGame) {
+	dy= dyFromGame;
+	
+	}
 	public int getScore() {
 		return score;
 	}
 		
 	
-	   
+	public boolean intersects(Walls wall) {
+	    Rectangle tankRect = new Rectangle(getX(), getY(), getW(), getH());
+	    Rectangle wallRect = new Rectangle(wall.getX(), wall.getY(), wall.getW(), wall.getH());
+
+	    // Check if the tank rectangle intersects with the wall rectangle
+	    if (tankRect.intersects(wallRect)) {
+	        // Check if the tank is trying to pass through the walls
+	        // In this case, the tank is allowed to pass, so return false
+	        if (getX() + getW() <= wall.getX() || getX() >= wall.getX() + wall.getW()
+	                || getY() + getH() <= wall.getY() || getY() >= wall.getY() + wall.getH()) {
+	            return false;
+	        }
+
+	        // Collision occurred and tank is not passing through walls, return true
+	        return true;
+	    }
+
+	    // No collision, return false
+	    return false;
+	}
+
 	   
 	   
 public void moverpalaarriba (int screenw, int screenh) {
@@ -118,6 +143,14 @@ public boolean collision(Tank t) {
          x + w > t.getX() &&
          y < t.getY() + t.getH() &&
          y + h > t.getY());
+}
+public void setX(int player1x) {
+	// TODO Auto-generated method stub
+	
+}
+public void setY(int player1y) {
+	// TODO Auto-generated method stub
+	
 }
 
 

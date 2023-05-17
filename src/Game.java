@@ -51,14 +51,14 @@ public class Game extends JPanel implements Runnable, KeyListener, ActionListene
 		new Thread(this).start();
 		
     background = new ImageIcon ("background.jpg");
-    menu = new ImageIcon ("menu.png");
+    menu = new ImageIcon ("goodbackgoround.gif");
 		back=null;
     player1 = new Tank(250,475,100,100, "bluetank.png", 2 ,2);
     player2 = new Tank(1550,475,100,100, "greentank.png", 2 ,2);
 
-	upwall  = new Walls(500, 280, 20, 180);
+	upwall  = new Walls(500, 300, 20, 180);
 	downwall  = new Walls(700, 570, 20, 180);
-	rightwall  = new Walls(1400, 280, 20, 180);
+	rightwall  = new Walls(1400, 300, 20, 180);
 	leftwall  = new Walls(1200, 570, 20, 180);
 	lastwall  = new Walls(950, 300, 20, 180);
 	pbluebullet = new ArrayList <PlayerBlueProj> ();
@@ -66,7 +66,8 @@ public class Game extends JPanel implements Runnable, KeyListener, ActionListene
 	st = new SoundPlayer();
 	
 	
-	
+
+
    s =new Sound();
     s.playmusic("battle-of-the-dragons-8037.wav");
                         		
@@ -116,9 +117,9 @@ public class Game extends JPanel implements Runnable, KeyListener, ActionListene
 	       
 		g2d.drawImage(background.getImage(), 0, 0, getWidth(), getHeight(), this); 
 		//Walls 
-		g2d.fillRect(500, 280, 20, 180);
+		g2d.fillRect(500, 300, 20, 180);
 		g2d.fillRect(700, 570, 20, 180);
-		g2d.fillRect(1400, 280, 20, 180);
+		g2d.fillRect(1400, 300, 20, 180);
 		g2d.fillRect(1200, 570, 20, 180);
 		g2d.fillRect(950, 300, 20, 180);
 	
@@ -140,6 +141,7 @@ public class Game extends JPanel implements Runnable, KeyListener, ActionListene
 
 		
 		moveplayers();
+		moveplayerstest(g2d);
 		drawpbullet(g2d);     
 		drawgreenbullet(g2d);
 		collisionBullets(g2d);
@@ -370,7 +372,71 @@ public class Game extends JPanel implements Runnable, KeyListener, ActionListene
 	}
 	
 	
-	
+	public void moveplayerstest(Graphics g2d) {
+	    if (juego) {
+	        // Store the current positions of the tanks
+	        int player1X = player1.getX();
+	        int player1Y = player1.getY();
+	        int player2X = player2.getX();
+	        int player2Y = player2.getY();
+
+	        // Move the tanks based on the key inputs
+	        if (up1) {
+	            player2.moverpalaarriba(getWidth(), getHeight());  // Move player2 up
+	        }
+	        if (up2) {
+	            player1.moverpalaarriba(getWidth(), getHeight());  // Move player1 up
+	        }
+	        if (down1) {
+	            player2.moverpalaabajo(getWidth(), getHeight());   // Move player2 down
+	        }
+	        if (down2) {
+	            player1.moverpalaabajo(getWidth(), getHeight());   // Move player1 down
+	        }
+	        if (right2) {
+	            player1.moverderecha(getWidth(), getHeight());     // Move player1 right
+	        }
+	        if (right) {
+	            player2.moverderecha(getWidth(), getHeight());     // Move player2 right
+	        }
+	        if (left) {
+	            player2.moverizquierda(getWidth(), getHeight());   // Move player2 left
+	        }
+	        if (left2) {
+	            player1.moverizquierda(getWidth(), getHeight());   // Move player1 left
+	        }
+
+	        // Check collision between player1 and walls
+	        if (player1.intersects(upwall) || player1.intersects(downwall) ||
+	                player1.intersects(rightwall) || player1.intersects(leftwall) || player1.intersects(lastwall)) {
+	            // Restore the previous position if there is a collision
+	            player1.setX(player1X);
+	            player1.setY(player1Y);
+	            // Set velocity to 0
+	            player1.setDx(0);
+	            player1.setDy(0);
+	            // Clear the screen or perform any other necessary action
+	           g2d.fillRect(0, 0, 2000, 2000);
+	        }
+
+	        // Check collision between player2 and walls
+	        if (player2.intersects(upwall) || player2.intersects(downwall) ||
+	                player2.intersects(rightwall) || player2.intersects(leftwall) || player2.intersects(lastwall)) {
+	            // Restore the previous position if there is a collision
+	            player2.setX(player2X);
+	            player2.setY(player2Y);
+	            // Set velocity to 0
+	            player2.setDx(0);
+	            player2.setDy(0);
+	        
+	            // Clear the screen or perform any other necessary action
+	            g2d.fillRect(0, 0, 2000, 2000);
+	        }
+	        
+	       // if player2.moverizquierda(player2X, player2Y);
+	    }
+	}
+
 	
 	
 	@Override
