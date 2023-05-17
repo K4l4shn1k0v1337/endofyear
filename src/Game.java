@@ -16,9 +16,10 @@ public class Game extends JPanel implements Runnable, KeyListener, ActionListene
 	private static final long serialVersionUID = 1L;
 	private BufferedImage back;
 	
-  private ImageIcon background, menu, fuego;
+  private ImageIcon background, menu, fuego, blueplayer, greenplayer, corazon;
   private Tank player1, player2;
   private Walls upwall, downwall, rightwall, leftwall, lastwall;
+  private int key, lives;
   
   private boolean playMusic;
   private Sound s;
@@ -53,6 +54,11 @@ public class Game extends JPanel implements Runnable, KeyListener, ActionListene
     background = new ImageIcon ("background.jpg");
     menu = new ImageIcon ("goodbackgoround.gif");
     fuego = new ImageIcon ("fuego2.gif");
+    blueplayer = new ImageIcon ("blueplayer.gif");
+    greenplayer = new ImageIcon ("greenplayer.gif");
+    corazon = new ImageIcon ("corazon.gif");
+    
+    
 		back=null;
     player1 = new Tank(250,475,100,100, "bluetank.png", 1 ,1);
     player2 = new Tank(1550,475,100,100, "greentank.png", 1 ,1);
@@ -65,6 +71,8 @@ public class Game extends JPanel implements Runnable, KeyListener, ActionListene
 	pbluebullet = new ArrayList <PlayerBlueProj> ();
 	pgreenbullet = new ArrayList <PlayerGreenProj>();
 	st = new SoundPlayer();
+	lives = 0;
+	key =-1;
 	
 	
 
@@ -115,19 +123,20 @@ public class Game extends JPanel implements Runnable, KeyListener, ActionListene
 		g2d.clearRect(0, 0, getSize().width, getSize().height); 
 		
 
-	       
+		
 		g2d.drawImage(background.getImage(), 0, 0, getWidth(), getHeight(), this); 
+	
 		//Walls 
-		g2d.fillRect(500, 300, 20, 200);
+		//g2d.fillRect(500, 300, 20, 200);
 		g2d.drawImage(fuego.getImage(), 430, 220, 150, 280, this); 
-		g2d.fillRect(700, 570, 20, 180);
+		//g2d.fillRect(700, 570, 20, 180);
 		g2d.drawImage(fuego.getImage(), 880, 220, 150, 280, this); 
-		g2d.fillRect(1400, 300, 20, 180);
+		//g2d.fillRect(1400, 300, 20, 180);
 		g2d.drawImage(fuego.getImage(), 1330, 220, 150, 280, this); 
-		g2d.fillRect(1200, 570, 20, 180);
-		g2d.drawImage(fuego.getImage(), 730, 420, 150, 280, this); 
-		g2d.fillRect(950, 300, 20, 180);
-		g2d.drawImage(fuego.getImage(), 430, 220, 150, 280, this); 
+		//g2d.fillRect(1200, 570, 20, 180);
+		g2d.drawImage(fuego.getImage(),  630, 500, 150, 280, this); 
+		//g2d.fillRect(950, 300, 20, 180);
+		g2d.drawImage(fuego.getImage(), 1130, 500, 150, 280, this); 
 	
 
 		g2d.drawImage(player1.getImg().getImage(), player1.getX(), player1.getY(), player1.getW(), player1.getH(), this);
@@ -141,17 +150,16 @@ public class Game extends JPanel implements Runnable, KeyListener, ActionListene
 		g2d.setColor(Color.BLACK);
 		g2d.setFont(new Font("Consolas", Font.PLAIN,22));
 		g2d.drawString("SCORE: " + player2.getScore(), 560, 100);
-		g2d.drawString("SCORE: " + player1.getScore(), 710, 100);
+		g2d.drawString("SCORE: " + player1.getScore(), 1310, 100);
 		
 		
-
 		
 		moveplayers();
 		moveplayerstest(g2d);
 		drawpbullet(g2d);     
 		drawgreenbullet(g2d);
 		collisionBullets(g2d);
-		//collisionBulletstank(g2d);
+		
 		
 		
 		
@@ -167,21 +175,22 @@ public class Game extends JPanel implements Runnable, KeyListener, ActionListene
 		//Win and Lose                                                   //Ganador y perdedor
 		
 		if (player1.getScore()>=5) {
-			g2d.setColor(Color.BLACK);
-			g2d.setFont(new Font("Consolas", Font.PLAIN,42));
-			g2d.drawString("You Win!", 350, 200);
-			g2d.drawString("You Lose!", 750, 200);
+			
+			  g2d.drawImage(greenplayer.getImage(), 0, 0, getWidth(), getHeight(), this); 
+		
 		}
 			else if (player2.getScore()>=5) {
-				g2d.drawString("You Lose!", 350, 200);
-				g2d.drawString("You Win!", 750, 200);
 				
+		       
+		         g2d.drawImage(blueplayer.getImage(), 0, 0, getWidth(), getHeight(), this); 
+		            
+		          
 			
 			
 		}
 			
 			
-			
+	
 			
 			
 		
@@ -327,8 +336,7 @@ public class Game extends JPanel implements Runnable, KeyListener, ActionListene
 		}
 
 	
-
-
+	
 
 					
 					
@@ -422,7 +430,9 @@ public class Game extends JPanel implements Runnable, KeyListener, ActionListene
 	            player1.setDx(0);
 	            player1.setDy(0);
 	            // Clear the screen or perform any other necessary action
-	           g2d.fillRect(0, 0, 2000, 2000);
+
+	            g2d.drawImage(greenplayer.getImage(), 0, 0, getWidth(), getHeight(), this); 	            
+	  
 	        }
 
 	        // Check collision between player2 and walls
@@ -435,8 +445,8 @@ public class Game extends JPanel implements Runnable, KeyListener, ActionListene
 	            player2.setDx(0);
 	            player2.setDy(0);
 	        
-	            // Clear the screen or perform any other necessary action
-	            g2d.fillRect(0, 0, 2000, 2000);
+	      
+	            g2d.drawImage(blueplayer.getImage(), 0, 0, getWidth(), getHeight(), this); 
 	        }
 	        
 	       // if player2.moverizquierda(player2X, player2Y);
@@ -496,6 +506,13 @@ public class Game extends JPanel implements Runnable, KeyListener, ActionListene
 			
 			
 		}
+		
+
+		if  (e.getKeyCode() == KeyEvent.VK_U) {
+			juego=false;
+			
+		}
+	
     }
 	
 	@Override
