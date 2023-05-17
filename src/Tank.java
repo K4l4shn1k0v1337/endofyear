@@ -1,4 +1,5 @@
 import java.awt.Color;
+import java.awt.Rectangle;
 
 import javax.swing.ImageIcon;
 
@@ -61,8 +62,10 @@ public class Tank {
 		return score;
 	}
 		
-
-
+	
+	   
+	   
+	   
 public void moverpalaarriba (int screenw, int screenh) {
 	
 	   y += -dy;
@@ -116,6 +119,8 @@ public boolean collision(Tank t) {
          y < t.getY() + t.getH() &&
          y + h > t.getY());
 }
+
+
 
 }
 
