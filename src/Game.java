@@ -16,7 +16,7 @@ public class Game extends JPanel implements Runnable, KeyListener, ActionListene
 	private static final long serialVersionUID = 1L;
 	private BufferedImage back;
 	
-  private ImageIcon background, menu;
+  private ImageIcon background, menu, fuego;
   private Tank player1, player2;
   private Walls upwall, downwall, rightwall, leftwall, lastwall;
   
@@ -52,9 +52,10 @@ public class Game extends JPanel implements Runnable, KeyListener, ActionListene
 		
     background = new ImageIcon ("background.jpg");
     menu = new ImageIcon ("goodbackgoround.gif");
+    fuego = new ImageIcon ("fuego2.gif");
 		back=null;
-    player1 = new Tank(250,475,100,100, "bluetank.png", 2 ,2);
-    player2 = new Tank(1550,475,100,100, "greentank.png", 2 ,2);
+    player1 = new Tank(250,475,100,100, "bluetank.png", 1 ,1);
+    player2 = new Tank(1550,475,100,100, "greentank.png", 1 ,1);
 
 	upwall  = new Walls(500, 300, 20, 180);
 	downwall  = new Walls(700, 570, 20, 180);
@@ -117,11 +118,16 @@ public class Game extends JPanel implements Runnable, KeyListener, ActionListene
 	       
 		g2d.drawImage(background.getImage(), 0, 0, getWidth(), getHeight(), this); 
 		//Walls 
-		g2d.fillRect(500, 300, 20, 180);
+		g2d.fillRect(500, 300, 20, 200);
+		g2d.drawImage(fuego.getImage(), 430, 220, 150, 280, this); 
 		g2d.fillRect(700, 570, 20, 180);
+		g2d.drawImage(fuego.getImage(), 880, 220, 150, 280, this); 
 		g2d.fillRect(1400, 300, 20, 180);
+		g2d.drawImage(fuego.getImage(), 1330, 220, 150, 280, this); 
 		g2d.fillRect(1200, 570, 20, 180);
+		g2d.drawImage(fuego.getImage(), 730, 420, 150, 280, this); 
 		g2d.fillRect(950, 300, 20, 180);
+		g2d.drawImage(fuego.getImage(), 430, 220, 150, 280, this); 
 	
 
 		g2d.drawImage(player1.getImg().getImage(), player1.getX(), player1.getY(), player1.getW(), player1.getH(), this);
