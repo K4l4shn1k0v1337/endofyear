@@ -6,7 +6,7 @@ public class Main extends JFrame {
     private static final int HEIGHT = 1080;
 
     public Main() {
-        super("Demo Graphics");
+        super("BOF");
         setUndecorated(true); // Remove window decorations (title bar, borders)
         setExtendedState(JFrame.MAXIMIZED_BOTH); // Maximize the window to full-screen
 

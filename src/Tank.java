@@ -96,8 +96,8 @@ public void moverpalaarriba (int screenw, int screenh) {
 	   y += -dy;
 	    
 	    // check for collision with invisible wall at top of screen
-	    if (y < 190) {
-	        y = 190;
+	    if (y < 205) {
+	        y = 205;
 	    }
 	    
 	   
@@ -118,8 +118,8 @@ public void moverpalaabajo (int screenw, int screenh) {
 	  y += dy;
 	    
 	    // check for collision with invisible wall at bottom of screen
-	    if (y + h > 850) {
-	        y = 850 - h;
+	    if (y + h > 975) {
+	        y = 975 - h;
 	    }
 	}
 

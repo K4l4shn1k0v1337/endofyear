@@ -45,7 +45,10 @@ public class Game extends JPanel implements Runnable, KeyListener, ActionListene
   private boolean dispararverde = false;
   private SoundPlayer st;
 
-	public Game() {
+	
+
+  
+  public Game() {
 		
 
 		back=null;
@@ -60,14 +63,14 @@ public class Game extends JPanel implements Runnable, KeyListener, ActionListene
     
     
 		back=null;
-    player1 = new Tank(250,475,100,100, "bluetank.png", 1 ,1);
-    player2 = new Tank(1550,475,100,100, "greentank.png", 1 ,1);
+    player1 = new Tank(250,475,100,100, "bluetank.png", 2 ,2);
+    player2 = new Tank(1550,475,100,100, "greentank.png", 2 ,2);
 
-	upwall  = new Walls(500, 300, 20, 180);
-	downwall  = new Walls(700, 570, 20, 180);
+	upwall  = new Walls(500, 320, 20, 180);
+	downwall  = new Walls(700, 650, 20, 180);
 	rightwall  = new Walls(1400, 300, 20, 180);
-	leftwall  = new Walls(1200, 570, 20, 180);
-	lastwall  = new Walls(950, 300, 20, 180);
+	leftwall  = new Walls(1200, 650, 20, 180);
+	lastwall  = new Walls(950, 320, 20, 180);
 	pbluebullet = new ArrayList <PlayerBlueProj> ();
 	pgreenbullet = new ArrayList <PlayerGreenProj>();
 	st = new SoundPlayer();
@@ -81,10 +84,7 @@ public class Game extends JPanel implements Runnable, KeyListener, ActionListene
     s.playmusic("battle-of-the-dragons-8037.wav");
                         		
     
-    
-
-    
-
+   
 	
 	new Thread(this).start();	
 	this.addKeyListener(this);
@@ -93,8 +93,7 @@ public class Game extends JPanel implements Runnable, KeyListener, ActionListene
     this.setFocusable(true);
     this.requestFocusInWindow();                                   
 	
-    
-		
+   
 	}
 	
 	public void run() {
@@ -127,16 +126,16 @@ public class Game extends JPanel implements Runnable, KeyListener, ActionListene
 		g2d.drawImage(background.getImage(), 0, 0, getWidth(), getHeight(), this); 
 	
 		//Walls 
-		//g2d.fillRect(500, 300, 20, 200);
+		g2d.fillRect(500, 300, 20, 200);
 		g2d.drawImage(fuego.getImage(), 430, 220, 150, 280, this); 
-		//g2d.fillRect(700, 570, 20, 180);
+		g2d.fillRect(700, 650, 20, 180);
 		g2d.drawImage(fuego.getImage(), 880, 220, 150, 280, this); 
-		//g2d.fillRect(1400, 300, 20, 180);
+		g2d.fillRect(1400, 300, 20, 180);
 		g2d.drawImage(fuego.getImage(), 1330, 220, 150, 280, this); 
-		//g2d.fillRect(1200, 570, 20, 180);
-		g2d.drawImage(fuego.getImage(),  630, 500, 150, 280, this); 
-		//g2d.fillRect(950, 300, 20, 180);
-		g2d.drawImage(fuego.getImage(), 1130, 500, 150, 280, this); 
+		g2d.fillRect(1200, 650, 20, 180);
+		g2d.drawImage(fuego.getImage(),  630, 550, 150, 280, this); 
+		g2d.fillRect(950, 300, 20, 180);
+		g2d.drawImage(fuego.getImage(), 1130, 550, 150, 280, this); 
 	
 
 		g2d.drawImage(player1.getImg().getImage(), player1.getX(), player1.getY(), player1.getW(), player1.getH(), this);
@@ -148,9 +147,9 @@ public class Game extends JPanel implements Runnable, KeyListener, ActionListene
 		
 		//Score                                                          //Puntuacion
 		g2d.setColor(Color.BLACK);
-		g2d.setFont(new Font("Consolas", Font.PLAIN,22));
-		g2d.drawString("SCORE: " + player2.getScore(), 560, 100);
-		g2d.drawString("SCORE: " + player1.getScore(), 1310, 100);
+		g2d.setFont(new Font("Press Start 2P ", Font.PLAIN,40));
+		g2d.drawString(" " + player2.getScore(), 560, 100);
+		g2d.drawString(" " + player1.getScore(), 1310, 100);
 		
 		
 		
@@ -174,12 +173,12 @@ public class Game extends JPanel implements Runnable, KeyListener, ActionListene
 		}
 		//Win and Lose                                                   //Ganador y perdedor
 		
-		if (player1.getScore()>=5) {
+		if (player1.getScore()>=10) {
 			
 			  g2d.drawImage(greenplayer.getImage(), 0, 0, getWidth(), getHeight(), this); 
 		
 		}
-			else if (player2.getScore()>=5) {
+			else if (player2.getScore()>=10) {
 				
 		       
 		         g2d.drawImage(blueplayer.getImage(), 0, 0, getWidth(), getHeight(), this); 
@@ -206,7 +205,6 @@ public class Game extends JPanel implements Runnable, KeyListener, ActionListene
 	
 	}
 
-	
 	
 	 private void drawpbullet(Graphics g2d) {
          // TODO Auto-generated method stub
