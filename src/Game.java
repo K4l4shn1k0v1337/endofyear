@@ -126,15 +126,15 @@ public class Game extends JPanel implements Runnable, KeyListener, ActionListene
 		g2d.drawImage(background.getImage(), 0, 0, getWidth(), getHeight(), this); 
 	
 		//Walls 
-		g2d.fillRect(500, 300, 20, 200);
+		//g2d.fillRect(500, 300, 20, 200);
 		g2d.drawImage(fuego.getImage(), 430, 220, 150, 280, this); 
-		g2d.fillRect(700, 650, 20, 180);
+		//g2d.fillRect(700, 650, 20, 180);
 		g2d.drawImage(fuego.getImage(), 880, 220, 150, 280, this); 
-		g2d.fillRect(1400, 300, 20, 180);
+		//g2d.fillRect(1400, 300, 20, 180);
 		g2d.drawImage(fuego.getImage(), 1330, 220, 150, 280, this); 
-		g2d.fillRect(1200, 650, 20, 180);
+		//g2d.fillRect(1200, 650, 20, 180);
 		g2d.drawImage(fuego.getImage(),  630, 550, 150, 280, this); 
-		g2d.fillRect(950, 300, 20, 180);
+		//g2d.fillRect(950, 300, 20, 180);
 		g2d.drawImage(fuego.getImage(), 1130, 550, 150, 280, this); 
 	
 
